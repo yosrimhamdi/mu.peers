@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Rubik", sans-serif;
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+
+  --primary-color: #264f71;
+
+  --secondary-color: #009efb;
+
+  --green-blue-gradient: linear-gradient(315deg, #60dfcd 0%, #1e9afe 74%);
+}
