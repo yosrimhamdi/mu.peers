@@ -1,22 +1,23 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-import { SignUpType } from '@/app/page';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 const INITIAL_STATE = {
   user: null,
 };
 
+export const signUp = createAsyncThunk('auth/signup', async formValues => {
+  await axios.post('/api/register', formValues);
+});
+
 export const auth = createSlice({
   name: 'auth',
   initialState: INITIAL_STATE,
-  reducers: {
-    signUp: (state, action: PayloadAction<SignUpType>) => {
-      console.log(action.payload);
-
-      return state;
-    },
+  reducers: {},
+  extraReducers: builder => {
+    builder.addCase(signUp.fulfilled, () => {
+      console.log('redirect to login');
+    });
   },
 });
 
-export const { signUp } = auth.actions;
 export default auth.reducer;
