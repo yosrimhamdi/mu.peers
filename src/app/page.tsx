@@ -2,19 +2,34 @@
 
 import { Box } from '@mui/material';
 import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
 
 import FormikTextField from './components/FormikTextField';
 import FormikContext from './components/FormikContext';
+import { signUpValidator } from '../validators/auth';
+import { signUp } from '@/redux/slices/auth-slice';
+import { appDispatch } from '@/redux/store';
 
-export default () => {
+export interface SignUpType {
+  email: string;
+  password: string;
+  passwordConfirm: string;
+}
+const SignUp = () => {
+  const dispatch = useDispatch<appDispatch>();
+
+  const onFormSubmit = (formValues: SignUpType): void => {
+    dispatch(signUp(formValues));
+  };
+
   const formik = useFormik({
     initialValues: {
       email: '',
       password: '',
       passwordConfirm: '',
     },
-    onSubmit: e => console.log(e),
-    // validationSchema: signUpValidator,
+    onSubmit: onFormSubmit,
+    validationSchema: signUpValidator,
   });
 
   return (
@@ -64,3 +79,5 @@ export default () => {
     </div>
   );
 };
+
+export default SignUp;

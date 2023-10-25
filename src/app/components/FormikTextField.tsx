@@ -22,7 +22,7 @@ const FormikTextField: React.FC<FormikTextFieldProps> = ({
   label,
   name,
   type = 'text',
-  onChange,
+  onChange = () => {},
   loading = false,
   disabled = false,
 }) => {
@@ -32,10 +32,7 @@ const FormikTextField: React.FC<FormikTextFieldProps> = ({
 
   const onInputChange = (...args: any): void => {
     handleChange(...args);
-
-    if (onChange) {
-      onChange(...args);
-    }
+    onChange(...args);
   };
 
   let endAdornment = null;
