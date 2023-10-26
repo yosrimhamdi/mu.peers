@@ -3,12 +3,16 @@
 import { Box } from '@mui/material';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 import FormikTextField from './components/FormikTextField';
 import FormikContext from './components/FormikContext';
-import { signUpValidator } from '../validators/auth';
 import { signUp } from '@/redux/slices/auth-slice';
-import { appDispatch } from '@/redux/store';
+import { appDispatch, useAppSelector } from '@/redux/store';
+import { signUpValidator } from '@/validators/auth';
 
 export interface SignUpType {
   email: string;
@@ -17,9 +21,17 @@ export interface SignUpType {
 }
 const SignUp = () => {
   const dispatch = useDispatch<appDispatch>();
+  const router = useRouter();
+  const loading = useAppSelector(state => state.authReducer.loading);
 
   const onFormSubmit = (formValues: SignUpType): void => {
-    dispatch(signUp(formValues));
+    dispatch(signUp(formValues))
+      .then(unwrapResult)
+      .then(() => {
+        toast.success('We sent you an email verification!');
+        router.push('/login');
+      })
+      .catch((e: any) => toast.error(e.message));
   };
 
   const formik = useFormik({
@@ -67,12 +79,13 @@ const SignUp = () => {
                 type="password"
               />
             </FormikContext.Provider>
-            <button
-              className="transition duration-100 ease w-[200px] h-[50px]  bg-gradient-to-r from-sky-800 to-cyan-700 text-white shadow-2xl font-bold hover:brightness-105 hover:scale-[1.02]"
+            <LoadingButton
+              className="normal-case transition duration-100 ease w-[180px] h-[45px]  bg-gradient-to-r from-sky-800 to-cyan-700 text-white shadow-2xl font-bold hover:brightness-105 hover:scale-[1.02]"
               type="submit"
+              loading={loading}
             >
               Créer un compte
-            </button>
+            </LoadingButton>
           </Box>
         </div>
       </div>
