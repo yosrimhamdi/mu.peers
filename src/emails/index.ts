@@ -51,7 +51,7 @@ export const sendVerificationEmail = (
     user,
     templateId: MJ_VALIDATION_TMP_ID,
     variables: {
-      validationLink: `localhost:3000/api/verify-account?userId=${user.id}&token=${verificationToken}`,
+      verificationLink: `http://localhost:3000/api/verify-account?userId=${user.id}&token=${verificationToken}`,
     },
   });
 };

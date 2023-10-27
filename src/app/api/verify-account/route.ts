@@ -10,7 +10,7 @@ export const GET = async (request: Request) => {
   let user: User | null;
 
   if (!token || !userId) {
-    return new Response('Invalid token');
+    return new Response('Missing query param(s)');
   }
 
   try {
@@ -20,10 +20,14 @@ export const GET = async (request: Request) => {
       },
     });
   } catch (e) {
-    return new Response('Invalid token');
+    return new Response('User not found');
   }
 
   if (!user) {
+    return new Response('User not found');
+  }
+
+  if (user.isVerified) {
     return new Response('Invalid token');
   }
 
@@ -36,7 +40,7 @@ export const GET = async (request: Request) => {
       id: userId,
     },
     data: {
-      verificationToken: undefined,
+      verificationToken: null,
       isVerified: true,
     },
   });

@@ -30,7 +30,7 @@ export const POST = async (req: Request) => {
 
     if (
       e.name === 'PrismaClientKnownRequestError' &&
-      e.meta.target === 'User_email_key'
+      e.meta.target === 'email_text'
     ) {
       return jsonResponse({
         message: 'Email already exists',
