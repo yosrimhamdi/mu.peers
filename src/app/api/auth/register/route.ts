@@ -25,24 +25,20 @@ export const POST = async (req: Request) => {
     await sendVerificationEmail(user, verificationToken);
   } catch (e: any) {
     if (e.name === 'ValidationError') {
-      return jsonResponse({ message: e.message, status: 400 });
+      return jsonResponse(400, { message: e.message });
     }
 
     if (
       e.name === 'PrismaClientKnownRequestError' &&
       e.meta.target === 'email_text'
     ) {
-      return jsonResponse({
-        message: 'Email already exists',
-        status: 400,
-      });
+      return jsonResponse(400, { message: 'Email already exists' });
     }
 
-    return jsonResponse({
+    return jsonResponse(500, {
       message: 'Something went wrong. Try again later',
-      status: 500,
     });
   }
 
-  return jsonResponse({ message: 'Registration succeeded' });
+  return jsonResponse(201, { message: 'Registration succeeded' });
 };

@@ -1,11 +1,5 @@
-const jsonResponse = ({
-  message,
-  status = 200,
-}: {
-  message: string;
-  status?: number;
-}): Response => {
-  return Response.json({ message }, { status });
+const jsonResponse = (status: number, data: any): Response => {
+  return Response.json(data, { status });
 };
 
 export default jsonResponse;

@@ -8,6 +8,7 @@ declare global {
       MJ_FROM: string;
       MJ_FROM_NAME: string;
       MJ_VALIDATION_TMP_ID: number;
+      JWT_SECRET: string;
     }
   }
 }

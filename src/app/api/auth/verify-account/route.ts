@@ -1,5 +1,5 @@
+import { verify } from '@/utils/bcrypt';
 import { PrismaClient, User } from '@prisma/client';
-import bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 
@@ -31,7 +31,7 @@ export const GET = async (request: Request) => {
     return new Response('Invalid token');
   }
 
-  if (!(await bcrypt.compare(token, <string>user.verificationToken))) {
+  if (!verify(token, <string>user.verificationToken)) {
     return new Response('Invalid token');
   }
 

@@ -10,19 +10,25 @@ import LoadingButton from '@mui/lab/LoadingButton';
 
 import FormikTextField from './components/FormikTextField';
 import FormikContext from './components/FormikContext';
-import { signUp } from '@/redux/slices/auth-slice';
+import { autoSignIn, signUp } from '@/redux/slices/auth-slice';
 import { appDispatch, useAppSelector } from '@/redux/store';
 import { signUpValidator } from '@/validators/auth';
+import { useEffect } from 'react';
 
 export interface SignUpType {
   email: string;
   password: string;
   passwordConfirm: string;
 }
+
 const SignUp = () => {
   const dispatch = useDispatch<appDispatch>();
   const router = useRouter();
   const loading = useAppSelector(state => state.authReducer.loading);
+
+  useEffect(() => {
+    dispatch(autoSignIn());
+  }, [dispatch]);
 
   const onFormSubmit = (formValues: SignUpType): void => {
     dispatch(signUp(formValues))
