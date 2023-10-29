@@ -7,7 +7,7 @@ import thunk from '../createAsyncThunk';
 
 const INITIAL_STATE = {
   user: null,
-  loading: false,
+  loading: true,
 };
 
 export const autoSignIn = thunk('auth/autoSignIn', async () => {
@@ -38,20 +38,18 @@ export const auth = createSlice({
         state.loading = false;
       });
 
-    builder
-      .addCase(signIn.pending, state => {
-        state.loading = true;
-      })
-      .addCase(signIn.fulfilled, (state, action) => {
-        state.loading = false;
-        state.user = action.payload.data.user;
-      })
-      .addCase(signIn.rejected, state => {
-        state.loading = false;
-      });
-
-    builder.addCase(autoSignIn.fulfilled, (state, action) => {
-      state.user = action.payload.data;
+    [signIn, autoSignIn].map(thunk => {
+      builder
+        .addCase(thunk.pending, state => {
+          state.loading = true;
+        })
+        .addCase(thunk.fulfilled, (state, action) => {
+          state.loading = false;
+          state.user = action.payload.data.user;
+        })
+        .addCase(thunk.rejected, state => {
+          state.loading = false;
+        });
     });
   },
 });

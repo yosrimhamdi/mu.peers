@@ -5,6 +5,16 @@ import authReducer from './slices/auth-slice';
 
 export const store = configureStore({
   reducer: { authReducer },
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActionPaths: [
+          'payload.headers',
+          'payload.config',
+          'payload.request',
+        ],
+      },
+    }),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
