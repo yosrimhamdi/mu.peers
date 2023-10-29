@@ -10,6 +10,7 @@ declare global {
       MJ_VALIDATION_TMP_ID: number;
       JWT_SECRET: string;
       BASE_URL: string;
+      ADMIN_USER_PASSWORD: string;
     }
   }
 }
