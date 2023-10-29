@@ -1,7 +1,8 @@
-import { verify } from '@/utils/bcrypt';
-import { PrismaClient, User } from '@prisma/client';
+import { User } from '@prisma/client';
 
-const prisma = new PrismaClient();
+import { verify } from '@/utils/bcrypt';
+import prisma from '../../../../../prisma';
+import { findUserById } from '../../../../../prisma/user';
 
 export const GET = async (request: Request) => {
   const { searchParams } = new URL(request.url);
@@ -14,11 +15,7 @@ export const GET = async (request: Request) => {
   }
 
   try {
-    user = await prisma.user.findUnique({
-      where: {
-        id: userId,
-      },
-    });
+    user = await findUserById(userId);
   } catch (e) {
     return new Response('User not found');
   }

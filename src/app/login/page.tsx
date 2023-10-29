@@ -7,6 +7,7 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import LoadingButton from '@mui/lab/LoadingButton';
+import Link from 'next/link';
 
 import FormikTextField from '@/app/components/FormikTextField';
 import FormikContext from '@/app/components/FormikContext';
@@ -51,9 +52,12 @@ const SignUp = () => {
         </div>
         <div className="flex flex-col md:flex-row justify-center items-center mb-[10px] mt-[10px]">
           <span>Toujours pas inscrit ?</span>
-          <button className=" p-4 transition duration-200 ease text-cyan-500 font-bold hover:scale-105 hover:text-cyan-600  flex justify-center items-center">
+          <Link
+            href="/"
+            className=" p-4 transition duration-200 ease text-cyan-500 font-bold hover:scale-105 hover:text-cyan-600  flex justify-center items-center"
+          >
             S&apos;inscrire
-          </button>
+          </Link>
         </div>
         <div className="w-full flex flex-col justify-center items-center">
           <Box

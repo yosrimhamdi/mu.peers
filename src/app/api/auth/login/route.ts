@@ -1,14 +1,12 @@
-import { PrismaClient } from '@prisma/client';
 import jwt from 'jsonwebtoken';
+import { cookies } from 'next/headers';
+import _ from 'lodash';
 
 import { SignInType } from '@/app/login/page';
 import jsonResponse from '@/utils/json-response';
 import { signInValidator } from '@/validators/auth';
 import { verify } from '@/utils/bcrypt';
-import { cookies } from 'next/headers';
-import _ from 'lodash';
-
-const prisma = new PrismaClient();
+import { findUserByEmail } from '../../../../../prisma/user';
 
 export const POST = async (req: Request) => {
   const { email, password }: SignInType = await req.json();
@@ -19,19 +17,24 @@ export const POST = async (req: Request) => {
     return jsonResponse(400, { message: e.message });
   }
 
-  const user = await prisma.user.findUnique({ where: { email } });
+  const user = await findUserByEmail(email);
 
-  if (!user?.isVerified) {
-    return new Response('Account not verified');
+  if (!user) {
+    return jsonResponse(400, { message: 'Wrong email or password' });
   }
 
-  if (!user || !(await verify(password, user.password))) {
+  if (!user.isVerified) {
+    return jsonResponse(401, { message: 'Account not verified' });
+  }
+
+  if (!(await verify(password, user.password))) {
     return jsonResponse(400, { message: 'Wrong email or password' });
   }
 
   const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
 
-  cookies().set('token', token);
+  const cookieStore = cookies();
+  cookieStore.set('token', token);
 
   return jsonResponse(200, { user: _.omit(user, 'password') });
 };

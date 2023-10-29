@@ -1,4 +1,3 @@
-import { PrismaClient } from '@prisma/client';
 import crypto from 'crypto';
 
 import { signUpValidator } from '@/validators/auth';
@@ -6,8 +5,7 @@ import { SignUpType } from '@/app/page';
 import jsonResponse from '@/utils/json-response';
 import { hash } from '@/utils/bcrypt';
 import { sendVerificationEmail } from '@/emails';
-
-const prisma = new PrismaClient();
+import prisma from '../../../../../prisma';
 
 export const POST = async (req: Request) => {
   const { email, password, passwordConfirm }: SignUpType = await req.json();

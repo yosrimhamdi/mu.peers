@@ -7,6 +7,7 @@ const {
   MJ_FROM,
   MJ_FROM_NAME,
   MJ_VALIDATION_TMP_ID,
+  BASE_URL,
 } = process.env;
 
 const send = ({
@@ -51,7 +52,7 @@ export const sendVerificationEmail = (
     user,
     templateId: MJ_VALIDATION_TMP_ID,
     variables: {
-      verificationLink: `http://localhost:3000/api/verify-account?userId=${user.id}&token=${verificationToken}`,
+      verificationLink: `${BASE_URL}/api/auth/verify-account?userId=${user.id}&token=${verificationToken}`,
     },
   });
 };

@@ -7,13 +7,13 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import LoadingButton from '@mui/lab/LoadingButton';
+import Link from 'next/link';
 
 import FormikTextField from './components/FormikTextField';
 import FormikContext from './components/FormikContext';
-import { autoSignIn, signUp } from '@/redux/slices/auth-slice';
+import { signUp } from '@/redux/slices/auth-slice';
 import { appDispatch, useAppSelector } from '@/redux/store';
 import { signUpValidator } from '@/validators/auth';
-import { useEffect } from 'react';
 
 export interface SignUpType {
   email: string;
@@ -25,10 +25,6 @@ const SignUp = () => {
   const dispatch = useDispatch<appDispatch>();
   const router = useRouter();
   const loading = useAppSelector(state => state.authReducer.loading);
-
-  useEffect(() => {
-    dispatch(autoSignIn());
-  }, [dispatch]);
 
   const onFormSubmit = (formValues: SignUpType): void => {
     dispatch(signUp(formValues))
@@ -60,9 +56,12 @@ const SignUp = () => {
         </div>
         <div className="flex flex-col md:flex-row justify-center items-center mb-[10px] mt-[10px]">
           <span>Vous avez déjà un compte ?</span>
-          <button className=" p-4 transition duration-200 ease text-cyan-500 font-bold hover:scale-105 hover:text-cyan-600  flex justify-center items-center">
+          <Link
+            href="/login"
+            className=" p-4 transition duration-200 ease text-cyan-500 font-bold hover:scale-105 hover:text-cyan-600  flex justify-center items-center"
+          >
             Se connecter
-          </button>
+          </Link>
         </div>
         <div className="w-full flex flex-col justify-center items-center">
           <Box
