@@ -6,7 +6,7 @@ import { SignInType } from '@/app/login/page';
 import jsonResponse from '@/utils/json-response';
 import { signInValidator } from '@/validators/auth';
 import { verify } from '@/utils/bcrypt';
-import { findUserByEmail } from '../../../../../prisma/user';
+import prisma from '../../../../../prisma';
 
 export const POST = async (req: Request) => {
   const { email, password }: SignInType = await req.json();
@@ -17,7 +17,7 @@ export const POST = async (req: Request) => {
     return jsonResponse(400, { message: e.message });
   }
 
-  const user = await findUserByEmail(email);
+  const user = await prisma.user.findUnique({ where: { email } });
 
   if (!user) {
     return jsonResponse(400, { message: 'Wrong email or password' });
@@ -38,6 +38,23 @@ export const POST = async (req: Request) => {
 
   const cookieStore = cookies();
   cookieStore.set('token', token);
+
+  await prisma.session.updateMany({
+    where: {
+      userId: user.id,
+      hasExpired: false,
+    },
+    data: {
+      hasExpired: true,
+    },
+  });
+
+  await prisma.session.create({
+    data: {
+      token,
+      userId: user.id,
+    },
+  });
 
   return jsonResponse(200, { user: _.omit(user, 'password') });
 };
