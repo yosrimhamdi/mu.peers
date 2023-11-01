@@ -8,6 +8,7 @@ const {
   MJ_FROM_NAME,
   MJ_VALIDATION_TMP_ID,
   BASE_URL,
+  MJ_RESET_PASSWORD_TMP_ID,
 } = process.env;
 
 const send = ({
@@ -53,6 +54,19 @@ export const sendVerificationEmail = (
     templateId: MJ_VALIDATION_TMP_ID,
     variables: {
       verificationLink: `${BASE_URL}/api/auth/verify-account?userId=${user.id}&token=${verificationToken}`,
+    },
+  });
+};
+
+export const sendResetPasswordEmail = (
+  user: User,
+  resetPasswordToken: string
+) => {
+  return send({
+    user,
+    templateId: MJ_RESET_PASSWORD_TMP_ID,
+    variables: {
+      resetPasswordLink: `${BASE_URL}/reset-password?userId=${user.id}&token=${resetPasswordToken}`,
     },
   });
 };

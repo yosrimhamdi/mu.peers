@@ -14,15 +14,15 @@ const AutoSignIn = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const loading = useAppSelector(state => state.authReducer.loading);
 
-  useEffect(() => {
-    dispatch(autoSignIn())
-      .then(unwrapResult)
-      .then(() => router.push('/dashboard'))
-      .catch(() => router.push('/login'));
-  }, [dispatch, router]);
+  // useEffect(() => {
+  //   dispatch(autoSignIn())
+  //     .then(unwrapResult)
+  //     .then(() => router.push('/dashboard'))
+  //     .catch(() => router.push('/login'));
+  // }, [dispatch, router]);
 
   if (loading) {
-    return <PageSpinner />;
+    // return <PageSpinner />;
   }
 
   return <div>{children}</div>;

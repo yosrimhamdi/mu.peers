@@ -47,16 +47,16 @@ const SignUp = () => {
       <div className="w-[85vw] md:w-[500px]  flex flex-col justify-between items-center shadow-md pb-4  ">
         <div className="w-full h-[80px] bg-gradient-to-r from-cyan-700 to-cyan-800 flex justify-center items-center">
           <h2 className="text-white font-bold text-xl">
-            Heureux de vous revoir
+            Happy to see you again
           </h2>
         </div>
         <div className="flex flex-col md:flex-row justify-center items-center mb-[10px] mt-[10px]">
-          <span>Toujours pas inscrit ?</span>
+          <span>Still not registered?</span>
           <Link
             href="/"
             className=" p-4 transition duration-200 ease text-cyan-500 font-bold hover:scale-105 hover:text-cyan-600  flex justify-center items-center"
           >
-            S&apos;inscrire
+            Register
           </Link>
         </div>
         <div className="w-full flex flex-col justify-center items-center">
@@ -68,10 +68,10 @@ const SignUp = () => {
             sx={{ px: 6 }}
           >
             <FormikContext.Provider value={formik}>
-              <FormikTextField name="email" label="Adresse Email" />
+              <FormikTextField name="email" label="Email adresse" />
               <FormikTextField
                 name="password"
-                label="Mot de passe"
+                label="Password"
                 type="password"
               />
             </FormikContext.Provider>
@@ -80,12 +80,15 @@ const SignUp = () => {
               type="submit"
               loading={loading}
             >
-              Se connecter
+              Login
             </LoadingButton>
           </Box>
-          <button className=" p-4 transition duration-200 ease text-cyan-500 font-bold hover:scale-105 hover:text-cyan-600  flex justify-center items-center">
-            J&apos;ai oublié mon mot de passe
-          </button>
+          <Link
+            href="/forgot-password"
+            className=" p-4 transition duration-200 ease text-cyan-500 font-bold hover:scale-105 hover:text-cyan-600  flex justify-center items-center"
+          >
+            I forgot my password
+          </Link>
         </div>
       </div>
     </div>

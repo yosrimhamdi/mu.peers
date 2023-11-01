@@ -7,8 +7,29 @@ import thunk from '../createAsyncThunk';
 
 const INITIAL_STATE = {
   user: null,
-  loading: true,
+  loading: false,
 };
+
+interface ResetPassword {
+  password: string;
+  passwordConfirm: string;
+  userId: string;
+  token: string;
+}
+
+export const resetPassword = thunk(
+  'auth/reset-password',
+  async (formValues: ResetPassword) => {
+    return await axios.post('/api/auth/reset-password', formValues);
+  }
+);
+
+export const forgotPassword = thunk(
+  'auth/forgot-password',
+  async (formValues: { email: string }) => {
+    return await axios.post('/api/auth/forgot-password', formValues);
+  }
+);
 
 export const autoSignIn = thunk('auth/autoSignIn', async () => {
   return await axios.get('/api/auth/me');
@@ -19,7 +40,7 @@ export const signIn = thunk('auth/signIn', async (formValues: SignInType) => {
 });
 
 export const signUp = thunk('auth/signUp', async (formValues: SignUpType) => {
-  await axios.post('/api/auth/register', formValues);
+  return await axios.post('/api/auth/register', formValues);
 });
 
 export const auth = createSlice({
@@ -27,16 +48,18 @@ export const auth = createSlice({
   initialState: INITIAL_STATE,
   reducers: {},
   extraReducers(builder) {
-    builder
-      .addCase(signUp.pending, state => {
-        state.loading = true;
-      })
-      .addCase(signUp.fulfilled, state => {
-        state.loading = false;
-      })
-      .addCase(signUp.rejected, state => {
-        state.loading = false;
-      });
+    [signUp, forgotPassword, resetPassword].map(thunk => {
+      builder
+        .addCase(thunk.pending, state => {
+          state.loading = true;
+        })
+        .addCase(thunk.fulfilled, state => {
+          state.loading = false;
+        })
+        .addCase(thunk.rejected, state => {
+          state.loading = false;
+        });
+    });
 
     [signIn, autoSignIn].map(thunk => {
       builder

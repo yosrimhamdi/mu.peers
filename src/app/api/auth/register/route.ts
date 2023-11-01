@@ -38,5 +38,7 @@ export const POST = async (req: Request) => {
     });
   }
 
-  return jsonResponse(201, { message: 'Registration succeeded' });
+  return jsonResponse(201, {
+    message: 'Registration succeeded. We sent you an email for verification',
+  });
 };

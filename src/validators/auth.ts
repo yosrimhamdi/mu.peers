@@ -24,3 +24,12 @@ export const signInValidator = object({
   email,
   password: string().required('Password is required'),
 });
+
+export const forgotPasswordValidator = object({
+  email,
+});
+
+export const resetPasswordValidator = object({
+  password,
+  passwordConfirm,
+});
