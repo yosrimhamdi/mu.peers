@@ -16,6 +16,7 @@ interface FormikTextFieldProps {
   disabled?: boolean;
   loading?: boolean;
   onChange?: (...args: any) => void;
+  required?: boolean;
 }
 
 const FormikTextField: React.FC<FormikTextFieldProps> = ({
@@ -25,6 +26,7 @@ const FormikTextField: React.FC<FormikTextFieldProps> = ({
   onChange = () => {},
   loading = false,
   disabled = false,
+  required = false,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const formik = useContext(FormikContext);
@@ -56,7 +58,7 @@ const FormikTextField: React.FC<FormikTextFieldProps> = ({
   return (
     <TextField
       margin="normal"
-      required
+      required={required}
       fullWidth
       type={showPassword ? 'text' : type}
       id={name}

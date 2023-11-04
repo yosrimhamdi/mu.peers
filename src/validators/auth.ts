@@ -33,3 +33,9 @@ export const resetPasswordValidator = object({
   password,
   passwordConfirm,
 });
+
+export const personalInfoValidator = object({
+  firstName: string().required('First Name is required'),
+  lastName: string().required('Last Name is required'),
+  phone: string().required('Phone is required'),
+});

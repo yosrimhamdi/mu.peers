@@ -1,12 +1,18 @@
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import Settings from '@mui/icons-material/Settings';
-import Logout from '@mui/icons-material/Logout';
 import { useState } from 'react';
-import HelpIcon from '@mui/icons-material/Help';
+import {
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  IconButton,
+  Tooltip,
+} from '@mui/material';
+import { Settings, Logout, Help as HelpIcon } from '@mui/icons-material';
+import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { unwrapResult } from '@reduxjs/toolkit';
+
+import { logout } from '@/redux/slices/auth-slice';
+import { appDispatch } from '@/redux/store';
 
 const paperProps = {
   elevation: 0,
@@ -38,11 +44,23 @@ const paperProps = {
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const dispatch = useDispatch<appDispatch>();
+  const router = useRouter();
+
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const onLogoutClick = () => {
+    dispatch(logout())
+      .then(unwrapResult)
+      .then(() => {
+        handleClose();
+        router.push('/login');
+      });
   };
 
   return (
@@ -81,7 +99,7 @@ const Header = () => {
           <span>Support Client</span>
         </MenuItem>
 
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={onLogoutClick}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>

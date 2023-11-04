@@ -7,6 +7,63 @@ import { Dispatch, SetStateAction } from 'react';
 import logo from './logo.png';
 import { items } from './nav';
 
+const sidebar = {
+  open: (height = 1000) => ({
+    clipPath: `circle(${height * 2 + 200}px at 40px 40px)`,
+    transition: {
+      type: 'spring',
+      stiffness: 20,
+      restDelta: 2,
+    },
+  }),
+  closed: {
+    clipPath: 'circle(25px at 40px 40px)',
+    transition: {
+      delay: 0.5,
+      type: 'spring',
+      stiffness: 400,
+      damping: 40,
+    },
+  },
+};
+
+const variants = {
+  open: {
+    transition: { staggerChildren: 0.07, delayChildren: 0.2 },
+  },
+  closed: {
+    transition: {
+      staggerChildren: 0.05,
+      staggerDirection: -1,
+    },
+  },
+};
+
+const variantsMenu = {
+  open: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      y: { stiffness: 1000, velocity: -200 },
+    },
+  },
+  closed: {
+    y: 50,
+    opacity: 0,
+    transition: {
+      y: { stiffness: 1000 },
+    },
+  },
+};
+
+const hover = {
+  x: -5,
+  scale: 1.05,
+  transition: {
+    duration: '0.1',
+  },
+};
+
 export const Sidebar = ({
   isOpen,
   setOpen,
@@ -18,25 +75,7 @@ export const Sidebar = ({
     <motion.nav
       initial={false}
       animate={isOpen ? 'open' : 'closed'}
-      variants={{
-        open: (height = 1000) => ({
-          clipPath: `circle(${height * 2 + 200}px at 40px 40px)`,
-          transition: {
-            type: 'spring',
-            stiffness: 20,
-            restDelta: 2,
-          },
-        }),
-        closed: {
-          clipPath: 'circle(25px at 40px 40px)',
-          transition: {
-            delay: 0.5,
-            type: 'spring',
-            stiffness: 400,
-            damping: 40,
-          },
-        },
-      }}
+      variants={sidebar}
       className="absolute top-0 left-0 z-[1000] w-[250px] bg-gradient-to-tr from-sky-900 to-cyan-600 items-center h-[max(1200px,100%)]"
     >
       <div>
@@ -53,48 +92,17 @@ export const Sidebar = ({
         </span>
       </div>
       <motion.ul
-        variants={{
-          open: {
-            transition: { staggerChildren: 0.07, delayChildren: 0.2 },
-          },
-          closed: {
-            transition: {
-              staggerChildren: 0.05,
-              staggerDirection: -1,
-            },
-          },
-        }}
+        variants={variants}
         className="absolute top-[100px] w-full pl-[20px] pr-[5px] flex flex-col gap-[20px]"
       >
         {items.map((item: { link: string; Icon: any; name: string }, index) => (
           <Link href={item.link} key={index}>
             <motion.li
-              variants={{
-                open: {
-                  y: 0,
-                  opacity: 1,
-                  transition: {
-                    y: { stiffness: 1000, velocity: -200 },
-                  },
-                },
-                closed: {
-                  y: 50,
-                  opacity: 0,
-                  transition: {
-                    y: { stiffness: 1000 },
-                  },
-                },
-              }}
-              whileHover={{
-                x: -5,
-                scale: 1.05,
-                transition: {
-                  duration: '0.1',
-                },
-              }}
+              variants={variantsMenu}
+              whileHover={hover}
               whileTap={{ scale: 0.95 }}
               className={
-                false
+                true
                   ? 'cursor-pointer flex justify-start items-center gap-[15px] p-[5px] bg-gradient-to-r from-cyan-500 to-teal-500 w-full rounded-2xl'
                   : 'cursor-pointer flex justify-start items-center gap-[15px] p-[5px] hover:bg-gradient-to-r from-cyan-500 to-teal-500 w-full rounded-2xl hover:opacity-0'
               }
@@ -106,7 +114,6 @@ export const Sidebar = ({
                     transform: 'scale(1.2)',
                   }}
                 />
-                ,
               </div>
               <div className=" w-[250px] h-[20px] flex-1  text-white">
                 {item.name}

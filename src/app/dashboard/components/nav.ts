@@ -15,74 +15,64 @@ import {
 } from '@mui/icons-material';
 
 export const items = [
+  // {
+  //   name: 'Dashboard',
+  //   Icon: DashboardIcon,
+  //   link: '/Acceuil',
+  // },
+  // {
+  //   name: 'Mes Clients',
+  //   Icon: PersonOutlineIcon,
+  //   link: '/Clients',
+  // },
+  // {
+  //   name: 'Nouveau Client',
+  //   Icon: PersonAddOutlinedIcon,
+  //   link: '/nouveau-client',
+  // },
+  // {
+  //   name: 'Mes Factures',
+  //   Icon: DescriptionOutlinedIcon,
+  //   link: '/Factures',
+  // },
+  // {
+  //   name: 'Nouvelle Facture',
+  //   Icon: NoteAddOutlinedIcon,
+  //   link: '/Nouvelle-facture',
+  // },
+  // {
+  //   name: 'XL Easy',
+  //   Icon: AddchartIcon,
+  //   link: '/XL-easy',
+  // },
+  // {
+  //   name: 'Mes Attestations',
+  //   Icon: ArticleOutlinedIcon,
+  //   link: '/Attestations',
+  // },
+  // {
+  //   name: 'Nouvelle Attestation',
+  //   Icon: PostAddOutlinedIcon,
+  //   link: '/Nouvelle-attestation',
+  // },
+  // {
+  //   name: 'Mes Rapports',
+  //   Icon: QueryStatsIcon,
+  //   link: '/rapports',
+  // },
   {
-    name: 'Dashboard',
-    Icon: DashboardIcon,
-    link: '/Acceuil',
-  },
-
-  {
-    name: 'Mes Clients',
-    Icon: PersonOutlineIcon,
-    link: '/Clients',
-  },
-  {
-    name: 'Nouveau Client',
-    Icon: PersonAddOutlinedIcon,
-    link: '/nouveau-client',
-  },
-  {
-    name: 'Mes Factures',
-    Icon: DescriptionOutlinedIcon,
-    link: '/Factures',
-  },
-  {
-    name: 'Nouvelle Facture',
-    Icon: NoteAddOutlinedIcon,
-    link: '/Nouvelle-facture',
-  },
-
-  {
-    name: 'XL Easy',
-    Icon: AddchartIcon,
-    link: '/XL-easy',
-  },
-  {
-    name: 'Mes Attestations',
-    Icon: ArticleOutlinedIcon,
-    link: '/Attestations',
-  },
-  {
-    name: 'Nouvelle Attestation',
-    Icon: PostAddOutlinedIcon,
-    link: '/Nouvelle-attestation',
-  },
-  {
-    name: 'Mes Rapports',
-    Icon: QueryStatsIcon,
-    link: '/rapports',
-  },
-  {
-    name: 'Paramètres',
+    name: 'settings',
     Icon: SettingsOutlinedIcon,
-    link: '/Parametres',
+    link: '/settings',
   },
-
-  {
-    name: 'FAQ',
-    Icon: LiveHelpIcon,
-    link: '/FAQ',
-  },
-
-  {
-    name: 'Nos Partenaires',
-    Icon: HandshakeIcon,
-    link: '/Partenaires',
-  },
-
-  {
-    name: 'Se déconnecter',
-    Icon: Logout,
-    link: '/',
-  },
+  // {
+  //   name: 'FAQ',
+  //   Icon: LiveHelpIcon,
+  //   link: '/FAQ',
+  // },
+  // {
+  //   name: 'Nos Partenaires',
+  //   Icon: HandshakeIcon,
+  //   link: '/Partenaires',
+  // },
 ];

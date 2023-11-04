@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { User } from '@prisma/client';
 
 import { SignUpType } from '@/app/page';
 import { SignInType } from '@/app/login/page';
 import thunk from '../createAsyncThunk';
+import { PersonalInfo } from '@/app/dashboard/page';
 
-const INITIAL_STATE = {
+const INITIAL_STATE: { user: User | null; loading: boolean } = {
   user: null,
   loading: false,
 };
@@ -16,6 +18,17 @@ interface ResetPassword {
   userId: string;
   token: string;
 }
+
+export const logout = thunk('auth/logout', async () => {
+  return await axios.get('/api/auth/logout');
+});
+
+export const updatePersonalInfo = thunk(
+  'auth/update-personal-info',
+  async (formValues: PersonalInfo) => {
+    return await axios.post('/api/auth/me', formValues);
+  }
+);
 
 export const resetPassword = thunk(
   'auth/reset-password',
@@ -61,7 +74,7 @@ export const auth = createSlice({
         });
     });
 
-    [signIn, autoSignIn].map(thunk => {
+    [signIn, autoSignIn, updatePersonalInfo].map(thunk => {
       builder
         .addCase(thunk.pending, state => {
           state.loading = true;
@@ -74,6 +87,18 @@ export const auth = createSlice({
           state.loading = false;
         });
     });
+
+    builder
+      .addCase(logout.pending, state => {
+        state.loading = true;
+      })
+      .addCase(logout.fulfilled, state => {
+        state.loading = false;
+        state.user = null;
+      })
+      .addCase(logout.rejected, state => {
+        state.loading = false;
+      });
   },
 });
 
