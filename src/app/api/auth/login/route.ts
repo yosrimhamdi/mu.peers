@@ -1,12 +1,12 @@
 import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 import _ from 'lodash';
+import { PrismaClient } from '@prisma/client';
 
 import { SignInType } from '@/app/login/page';
 import jsonResponse from '@/utils/json-response';
 import { signInValidator } from '@/validators/auth';
 import { verify } from '@/utils/bcrypt';
-import prisma from '../../../../../prisma';
 
 export const POST = async (req: Request) => {
   const { email, password }: SignInType = await req.json();
@@ -17,6 +17,7 @@ export const POST = async (req: Request) => {
     return jsonResponse(400, { message: e.message });
   }
 
+  const prisma = new PrismaClient();
   const user = await prisma.user.findUnique({ where: { email } });
 
   if (!user) {

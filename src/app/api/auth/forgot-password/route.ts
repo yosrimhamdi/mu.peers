@@ -1,13 +1,14 @@
+import { PrismaClient } from '@prisma/client';
+
 import jsonResponse from '../../../../utils/json-response';
-import { findUserByEmail } from '../../../../../prisma/user';
-import prisma from '../../../../../prisma';
 import { hash } from '@/utils/bcrypt';
 import { sendResetPasswordEmail } from '@/emails';
 
 export const POST = async (request: Request): Promise<Response> => {
   const { email }: { email: string | undefined } = await request.json();
 
-  const user = await findUserByEmail(email);
+  const prisma = new PrismaClient();
+  const user = await prisma.user.findUnique({ where: { email } });
 
   if (!user) {
     return jsonResponse(400, { message: 'Email not found' });

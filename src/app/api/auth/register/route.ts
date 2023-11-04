@@ -1,11 +1,11 @@
 import crypto from 'crypto';
+import { PrismaClient } from '@prisma/client';
 
 import { signUpValidator } from '@/validators/auth';
 import { SignUpType } from '@/app/page';
 import jsonResponse from '@/utils/json-response';
 import { hash } from '@/utils/bcrypt';
 import { sendVerificationEmail } from '@/emails';
-import prisma from '../../../../../prisma';
 
 export const POST = async (req: Request) => {
   const { email, password, passwordConfirm }: SignUpType = await req.json();
@@ -13,6 +13,7 @@ export const POST = async (req: Request) => {
   try {
     await signUpValidator.validate({ email, password, passwordConfirm });
     const verificationToken = crypto.randomUUID();
+    const prisma = new PrismaClient();
     const user = await prisma.user.create({
       data: {
         email,

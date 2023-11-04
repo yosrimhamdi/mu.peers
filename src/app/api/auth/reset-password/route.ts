@@ -1,12 +1,13 @@
+import { PrismaClient } from '@prisma/client';
+
 import jsonResponse from '@/utils/json-response';
-import { findUserById } from '../../../../../prisma/user';
 import { hash, verify } from '@/utils/bcrypt';
-import prisma from '../../../../../prisma';
 
 export const POST = async (req: Request): Promise<Response> => {
   const { userId, token, password } = await req.json();
 
-  const user = await findUserById(userId);
+  const prisma = new PrismaClient();
+  const user = await prisma.user.findUnique({ where: { id: userId } });
 
   if (!user) {
     return jsonResponse(400, { message: 'User not found' });

@@ -1,21 +1,20 @@
-import { User } from '@prisma/client';
+import { PrismaClient, User } from '@prisma/client';
 
 import { verify } from '@/utils/bcrypt';
-import prisma from '../../../../../prisma';
-import { findUserById } from '../../../../../prisma/user';
 
 export const GET = async (request: Request) => {
   const { searchParams } = new URL(request.url);
   const token = searchParams.get('token');
   const userId = searchParams.get('userId');
   let user: User | null;
+  const prisma = new PrismaClient();
 
   if (!token || !userId) {
     return new Response('Missing query param(s)');
   }
 
   try {
-    user = await findUserById(userId);
+    user = await prisma.user.findUnique({ where: { id: userId } });
   } catch (e) {
     return new Response('User not found');
   }

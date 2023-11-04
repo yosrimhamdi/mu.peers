@@ -1,8 +1,8 @@
 import _ from 'lodash';
+import { PrismaClient } from '@prisma/client';
 
 import jsonResponse from '@/utils/json-response';
 import { getAuthUser, isAuthenticated } from '@/utils/auth';
-import prisma from '../../../../../prisma';
 import { personalInfoValidator } from '@/validators/auth';
 import { PersonalInfo } from '@/app/dashboard/page';
 
@@ -38,6 +38,7 @@ export const POST = async (req: Request) => {
     return jsonResponse(400, { message: 'Invalid input(s)' });
   }
 
+  const prisma = new PrismaClient();
   const updatedUser = await prisma.user.update({
     where: { id: user.id },
     data: {
