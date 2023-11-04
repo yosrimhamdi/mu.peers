@@ -7,6 +7,7 @@ import { Box, Typography } from '@mui/material';
 import { unwrapResult } from '@reduxjs/toolkit';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
+import { User } from '@prisma/client';
 
 import Header from './components/Header';
 import SideBar from './components/SideBar';
@@ -15,7 +16,7 @@ import FormikContext from '../components/FormikContext';
 import { useAppSelector, appDispatch } from '@/redux/store';
 import { personalInfoValidator } from '@/validators/auth';
 import { updatePersonalInfo } from '@/redux/slices/auth-slice';
-
+import withAuth from '../withAuth';
 export interface PersonalInfo {
   firstName: string;
   lastName: string;
@@ -27,10 +28,10 @@ export interface PersonalInfo {
 const Dashboard = () => {
   const [isOpen, setOpen] = useState(true);
   const dispatch = useDispatch<appDispatch>();
-  const {
-    user: { firstName, lastName, company, phone, profession },
-    loading,
-  } = useAppSelector(state => state.auth);
+  const loading = useAppSelector(state => state.auth.loading);
+  const { firstName, lastName, company, phone, profession } = useAppSelector(
+    state => state.auth.user
+  ) as User;
 
   const onFormSubmit = (formValues: PersonalInfo) => {
     dispatch(updatePersonalInfo(formValues))
@@ -40,11 +41,11 @@ const Dashboard = () => {
 
   const formik = useFormik({
     initialValues: {
-      firstName,
-      lastName,
-      company,
-      phone,
-      profession,
+      firstName: firstName ?? '',
+      lastName: lastName ?? '',
+      company: company ?? '',
+      phone: phone ?? '',
+      profession: profession ?? '',
     },
     onSubmit: onFormSubmit,
     validationSchema: personalInfoValidator,
@@ -92,4 +93,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default withAuth(Dashboard);
