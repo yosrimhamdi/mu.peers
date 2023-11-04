@@ -40,7 +40,7 @@ export const isAuthenticated = async (): Promise<boolean> => {
     return false;
   }
 
-  return false;
+  return true;
 };
 
 export const getAuthUser = async (): Promise<User> => {

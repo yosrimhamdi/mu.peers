@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useRouter } from 'next/navigation';
@@ -14,15 +14,15 @@ const AutoSignIn = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const loading = useAppSelector(state => state.auth.loading);
 
-  // useEffect(() => {
-  //   dispatch(autoSignIn())
-  //     .then(unwrapResult)
-  //     .then(() => router.push('/dashboard'))
-  //     .catch(() => router.push('/login'));
-  // }, [dispatch, router]);
+  useLayoutEffect(() => {
+    dispatch(autoSignIn(null))
+      .then(unwrapResult)
+      .then(() => router.push('/dashboard'))
+      .catch(() => router.push('/login'));
+  }, [dispatch, router]);
 
   if (loading) {
-    // return <PageSpinner />;
+    return <PageSpinner />;
   }
 
   return <div>{children}</div>;

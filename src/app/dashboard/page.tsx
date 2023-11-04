@@ -16,7 +16,7 @@ import FormikContext from '../components/FormikContext';
 import { useAppSelector, appDispatch } from '@/redux/store';
 import { personalInfoValidator } from '@/validators/auth';
 import { updatePersonalInfo } from '@/redux/slices/auth-slice';
-import withAuth from '../withAuth';
+import withAuth from '../components/withAuth';
 export interface PersonalInfo {
   firstName: string;
   lastName: string;

@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast';
 
 import './globals.css';
 import ReduxProvider from '@/redux/Provider';
+import AutoSignIn from './components/AutoSignIn';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,7 +22,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Toaster position="top-right" />
-        <ReduxProvider>{children}</ReduxProvider>
+        <ReduxProvider>
+          <AutoSignIn>{children}</AutoSignIn>
+        </ReduxProvider>
       </body>
     </html>
   );
