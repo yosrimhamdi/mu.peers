@@ -24,7 +24,7 @@ export interface SignUpType {
 const SignUp = () => {
   const dispatch = useDispatch<appDispatch>();
   const router = useRouter();
-  const loading = useAppSelector(state => state.authReducer.loading);
+  const loading = useAppSelector(state => state.auth.loading);
 
   const onFormSubmit = (formValues: SignUpType): void => {
     dispatch(signUp(formValues))

@@ -22,7 +22,7 @@ export interface SignInType {
 const SignUp = () => {
   const dispatch = useDispatch<appDispatch>();
   const router = useRouter();
-  const loading = useAppSelector(state => state.authReducer.loading);
+  const loading = useAppSelector(state => state.auth.loading);
 
   const onFormSubmit = (formValues: SignInType): void => {
     dispatch(signIn(formValues))

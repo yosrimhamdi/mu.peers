@@ -4,7 +4,7 @@ import { TypedUseSelectorHook, useSelector } from 'react-redux';
 import authReducer from './slices/auth-slice';
 
 export const store = configureStore({
-  reducer: { authReducer },
+  reducer: { auth: authReducer },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {

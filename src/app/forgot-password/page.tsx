@@ -16,7 +16,7 @@ import { forgotPasswordValidator } from '@/validators/auth';
 
 const SignUp = () => {
   const dispatch = useDispatch<appDispatch>();
-  const loading = useAppSelector(state => state.authReducer.loading);
+  const loading = useAppSelector(state => state.auth.loading);
 
   const onFormSubmit = (formValues: { email: string }): void => {
     dispatch(forgotPassword(formValues))

@@ -25,7 +25,7 @@ const SignUp = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const loading = useAppSelector(state => state.authReducer.loading);
+  const loading = useAppSelector(state => state.auth.loading);
 
   const onFormSubmit = (formValues: ResetPassword): void => {
     dispatch(

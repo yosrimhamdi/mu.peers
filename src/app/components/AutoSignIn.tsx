@@ -12,7 +12,7 @@ import PageSpinner from './PageSpinner';
 const AutoSignIn = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch<appDispatch>();
   const router = useRouter();
-  const loading = useAppSelector(state => state.authReducer.loading);
+  const loading = useAppSelector(state => state.auth.loading);
 
   // useEffect(() => {
   //   dispatch(autoSignIn())
