@@ -14,12 +14,12 @@ import {
   QueryStats as QueryStatsIcon,
 } from '@mui/icons-material';
 
-export const items = [
-  // {
-  //   name: 'Dashboard',
-  //   Icon: DashboardIcon,
-  //   link: '/Acceuil',
-  // },
+const navigation = [
+  {
+    name: 'Dashboard',
+    Icon: DashboardIcon,
+    link: '/dashboard',
+  },
   // {
   //   name: 'Mes Clients',
   //   Icon: PersonOutlineIcon,
@@ -60,11 +60,11 @@ export const items = [
   //   Icon: QueryStatsIcon,
   //   link: '/rapports',
   // },
-  {
-    name: 'settings',
-    Icon: SettingsOutlinedIcon,
-    link: '/settings',
-  },
+  // {
+  //   name: 'settings',
+  //   Icon: SettingsOutlinedIcon,
+  //   link: '/settings',
+  // },
   // {
   //   name: 'FAQ',
   //   Icon: LiveHelpIcon,
@@ -76,3 +76,5 @@ export const items = [
   //   link: '/Partenaires',
   // },
 ];
+
+export default navigation;

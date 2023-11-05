@@ -6,7 +6,7 @@ const PageSpinner = () => {
       open
       sx={{
         // color: 'grey',
-        bgcolor: 'transparent',
+        bgcolor: '#00000038',
         zIndex: theme => theme.zIndex.drawer + 1,
       }}
     >

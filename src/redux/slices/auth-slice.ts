@@ -5,12 +5,17 @@ import { User } from '@prisma/client';
 import { SignUpType } from '@/app/page';
 import { SignInType } from '@/app/login/page';
 import thunk from '../createAsyncThunk';
-import { PersonalInfo } from '@/app/dashboard/page';
+import { PersonalInfo } from '@/app/user-profile/page';
 import { ResetPassword } from '@/app/reset-password/page';
 
-const INITIAL_STATE: { user: User | null; loading: boolean } = {
+const INITIAL_STATE: {
+  user: User | null;
+  loading: boolean;
+  loadingAuto: boolean;
+} = {
   user: null,
   loading: false,
+  loadingAuto: false,
 };
 
 export const logout = thunk('auth/logout', async () => {
@@ -68,7 +73,7 @@ export const auth = createSlice({
         });
     });
 
-    [signIn, autoSignIn, updatePersonalInfo].map(thunk => {
+    [signIn, updatePersonalInfo].map(thunk => {
       builder
         .addCase(thunk.pending, state => {
           state.loading = true;
@@ -92,6 +97,18 @@ export const auth = createSlice({
       })
       .addCase(logout.rejected, state => {
         state.loading = false;
+      });
+
+    builder
+      .addCase(autoSignIn.pending, state => {
+        state.loadingAuto = true;
+      })
+      .addCase(autoSignIn.fulfilled, (state, action) => {
+        state.loadingAuto = false;
+        state.user = action.payload.data.user;
+      })
+      .addCase(autoSignIn.rejected, state => {
+        state.loadingAuto = false;
       });
   },
 });

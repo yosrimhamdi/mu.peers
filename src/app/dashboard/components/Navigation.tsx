@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Dispatch, SetStateAction } from 'react';
 
 import logo from './logo.png';
-import { items } from './nav';
+import navigation from './navigation';
 
 const sidebar = {
   open: (height = 1000) => ({
@@ -84,43 +84,45 @@ export const Sidebar = ({
             onClick={() => setOpen(!isOpen)}
             className="absolute top-[16px] left-[16px] w-[50px] h-[50px] rounded-[50%] bg-transparent flex justify-center items-center"
           >
-            <Image src={logo} className=" h-[55px]" alt="website logo" />
+            <Image src={logo} className="h-[75%]  w-[75%]" alt="website logo" />
           </button>
         </Tooltip>
-        <span className="absolute text-white left-[100px] top-[30px] w-[20px] text-xl font-bold">
-          A.I.S
+        <span className="absolute text-white left-[100px] top-[30px] w-[20px] text-xl font-bold whitespace-nowrap">
+          Mu-peers
         </span>
       </div>
       <motion.ul
         variants={variants}
         className="absolute top-[100px] w-full pl-[20px] pr-[5px] flex flex-col gap-[20px]"
       >
-        {items.map((item: { link: string; Icon: any; name: string }, index) => (
-          <Link href={item.link} key={index}>
-            <motion.li
-              variants={variantsMenu}
-              whileHover={hover}
-              whileTap={{ scale: 0.95 }}
-              className={
-                true
-                  ? 'cursor-pointer flex justify-start items-center gap-[15px] p-[5px] bg-gradient-to-r from-cyan-500 to-teal-500 w-full rounded-2xl'
-                  : 'cursor-pointer flex justify-start items-center gap-[15px] p-[5px] hover:bg-gradient-to-r from-cyan-500 to-teal-500 w-full rounded-2xl hover:opacity-0'
-              }
-            >
-              <div className="  flex  rounded-[100%] p-[2px]">
-                <item.Icon
-                  sx={{
-                    color: 'white',
-                    transform: 'scale(1.2)',
-                  }}
-                />
-              </div>
-              <div className=" w-[250px] h-[20px] flex-1  text-white">
-                {item.name}
-              </div>
-            </motion.li>
-          </Link>
-        ))}
+        {navigation.map(
+          (item: { link: string; Icon: any; name: string }, index) => (
+            <Link href={item.link} key={index}>
+              <motion.li
+                variants={variantsMenu}
+                whileHover={hover}
+                whileTap={{ scale: 0.95 }}
+                className={
+                  true
+                    ? 'cursor-pointer flex justify-start items-center gap-[15px] p-[5px] bg-gradient-to-r from-cyan-500 to-teal-500 w-full rounded-2xl'
+                    : 'cursor-pointer flex justify-start items-center gap-[15px] p-[5px] hover:bg-gradient-to-r from-cyan-500 to-teal-500 w-full rounded-2xl hover:opacity-0'
+                }
+              >
+                <div className="  flex  rounded-[100%] p-[2px]">
+                  <item.Icon
+                    sx={{
+                      color: 'white',
+                      transform: 'scale(1.2)',
+                    }}
+                  />
+                </div>
+                <div className=" w-[250px] h-[20px] flex-1  text-white">
+                  {item.name}
+                </div>
+              </motion.li>
+            </Link>
+          )
+        )}
       </motion.ul>
     </motion.nav>
   );

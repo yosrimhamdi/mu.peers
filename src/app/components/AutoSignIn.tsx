@@ -12,7 +12,7 @@ import PageSpinner from './PageSpinner';
 const AutoSignIn = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch<appDispatch>();
   const router = useRouter();
-  const loading = useAppSelector(state => state.auth.loading);
+  const loadingAuto = useAppSelector(state => state.auth.loadingAuto);
 
   useLayoutEffect(() => {
     dispatch(autoSignIn(null))
@@ -21,8 +21,13 @@ const AutoSignIn = ({ children }: { children: React.ReactNode }) => {
       .catch(() => router.push('/login'));
   }, [dispatch, router]);
 
-  if (loading) {
-    return <PageSpinner />;
+  if (loadingAuto) {
+    return (
+      <div>
+        <PageSpinner />
+        {children}
+      </div>
+    );
   }
 
   return <div>{children}</div>;

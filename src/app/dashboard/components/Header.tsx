@@ -55,7 +55,7 @@ const Header = () => {
   };
 
   const onLogoutClick = () => {
-    dispatch(logout())
+    dispatch(logout(null))
       .then(unwrapResult)
       .then(() => {
         handleClose();
@@ -64,7 +64,7 @@ const Header = () => {
   };
 
   return (
-    <nav className="h-[75px] flex items-center justify-end pr-10 shadow-sm ">
+    <nav className="h-[75px] flex items-center justify-end pr-10 shadow">
       <Tooltip title="Mon Compte">
         <IconButton onClick={handleClick} size="small" sx={{ ml: 2 }}>
           <Settings
@@ -85,20 +85,18 @@ const Header = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleClose}>
+        {/* <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <Settings fontSize="small" className="text-stone-500" />
           </ListItemIcon>
           <span>Paramètres</span>
-        </MenuItem>
-
-        <MenuItem onClick={handleClose}>
+        </MenuItem> */}
+        {/* <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <HelpIcon fontSize="small" />
           </ListItemIcon>
           <span>Support Client</span>
-        </MenuItem>
-
+        </MenuItem> */}
         <MenuItem onClick={onLogoutClick}>
           <ListItemIcon>
             <Logout fontSize="small" />
