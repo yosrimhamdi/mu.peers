@@ -4,7 +4,7 @@ import { PrismaClient } from '@prisma/client';
 import jsonResponse from '@/utils/json-response';
 import { getAuthUser, isAuthenticated } from '@/utils/auth';
 import { personalInfoValidator } from '@/validators/auth';
-import { PersonalInfo } from '@/app/dashboard/page';
+import { PersonalInfo } from '@/app/user-profile/page';
 
 export const GET = async () => {
   if (!(await isAuthenticated())) {
