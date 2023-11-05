@@ -15,9 +15,11 @@ import { resetPassword } from '@/redux/slices/auth-slice';
 import { appDispatch, useAppSelector } from '@/redux/store';
 import { resetPasswordValidator } from '@/validators/auth';
 
-interface ResetPassword {
+export interface ResetPassword {
   password: string;
   passwordConfirm: string;
+  userId?: string;
+  token?: string;
 }
 
 const SignUp = () => {

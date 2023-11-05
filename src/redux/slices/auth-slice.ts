@@ -6,18 +6,12 @@ import { SignUpType } from '@/app/page';
 import { SignInType } from '@/app/login/page';
 import thunk from '../createAsyncThunk';
 import { PersonalInfo } from '@/app/dashboard/page';
+import { ResetPassword } from '@/app/reset-password/page';
 
 const INITIAL_STATE: { user: User | null; loading: boolean } = {
   user: null,
   loading: false,
 };
-
-interface ResetPassword {
-  password: string;
-  passwordConfirm: string;
-  userId: string;
-  token: string;
-}
 
 export const logout = thunk('auth/logout', async () => {
   return await axios.get('/api/auth/logout');
