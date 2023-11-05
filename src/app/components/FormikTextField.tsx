@@ -30,7 +30,7 @@ const FormikTextField: React.FC<FormikTextFieldProps> = ({
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const formik = useContext(FormikContext);
-  const { handleBlur, handleChange, touched, errors, values } = formik;
+  const { handleBlur, handleChange, touched, errors, values } = formik as any;
 
   const onInputChange = (...args: any): void => {
     handleChange(...args);
