@@ -43,7 +43,7 @@ export const forgotPassword = thunk(
   }
 );
 
-export const autoSignIn = thunk('auth/autoSignIn', async () => {
+export const fetchAuthUser = thunk('auth/autoSignIn', async () => {
   return await axios.get('/api/auth/me');
 });
 
@@ -100,14 +100,14 @@ export const auth = createSlice({
       });
 
     builder
-      .addCase(autoSignIn.pending, state => {
+      .addCase(fetchAuthUser.pending, state => {
         state.loadingAuto = true;
       })
-      .addCase(autoSignIn.fulfilled, (state, action) => {
+      .addCase(fetchAuthUser.fulfilled, (state, action) => {
         state.loadingAuto = false;
         state.user = action.payload.data.user;
       })
-      .addCase(autoSignIn.rejected, state => {
+      .addCase(fetchAuthUser.rejected, state => {
         state.loadingAuto = false;
       });
   },

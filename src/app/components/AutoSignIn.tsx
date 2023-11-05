@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useRouter } from 'next/navigation';
 
-import { autoSignIn } from '@/redux/slices/auth-slice';
+import { fetchAuthUser } from '@/redux/slices/auth-slice';
 import { appDispatch, useAppSelector } from '@/redux/store';
 import PageSpinner from './PageSpinner';
 
@@ -15,7 +15,7 @@ const AutoSignIn = ({ children }: { children: React.ReactNode }) => {
   const loadingAuto = useAppSelector(state => state.auth.loadingAuto);
 
   useLayoutEffect(() => {
-    dispatch(autoSignIn(null))
+    dispatch(fetchAuthUser(null))
       .then(unwrapResult)
       .then(() => router.push('/dashboard'))
       .catch(() => router.push('/login'));

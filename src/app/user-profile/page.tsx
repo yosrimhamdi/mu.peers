@@ -13,7 +13,7 @@ import FormikContext from '../components/FormikContext';
 import { useAppSelector, appDispatch } from '@/redux/store';
 import { personalInfoValidator } from '@/validators/auth';
 import { logout, updatePersonalInfo } from '@/redux/slices/auth-slice';
-import Header from '../dashboard/components/Header';
+import Header from '../components/Header';
 
 export interface PersonalInfo {
   firstName: string;

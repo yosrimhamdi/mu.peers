@@ -2,9 +2,8 @@
 
 import { useState } from 'react';
 
-import Header from './components/Header';
+import Header from '../components/Header';
 import Navigation from './components/Navigation';
-import withAuth from '../components/withAuth';
 
 const Dashboard = () => {
   const [isOpen, setOpen] = useState(true);
@@ -26,4 +25,4 @@ const Dashboard = () => {
   );
 };
 
-export default withAuth(Dashboard);
+export default Dashboard;
