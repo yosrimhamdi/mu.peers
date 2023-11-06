@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Toaster position="top-right" />
+        <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
         <ReduxProvider>
           <AutoSignIn>{children}</AutoSignIn>
         </ReduxProvider>

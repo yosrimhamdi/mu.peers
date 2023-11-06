@@ -20,6 +20,7 @@
     "bcrypt": "^5.1.1",
     "formik": "^2.4.5",
     "framer-motion": "^10.16.4",
+    "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
     "next": "13.5.6",
@@ -33,6 +34,7 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.1",
+    "@types/js-cookie": "^3.0.5",
     "@types/jsonwebtoken": "^9.0.4",
     "@types/lodash": "^4.14.200",
     "@types/node": "^20.8.9",

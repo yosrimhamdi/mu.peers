@@ -25,7 +25,10 @@ export const POST = async (req: Request) => {
   }
 
   if (!user.isVerified) {
-    return jsonResponse(401, { message: 'Account not verified' });
+    return jsonResponse(401, {
+      message:
+        "You're account in not verified. Check you're email box, we sent you a verification email!",
+    });
   }
 
   if (

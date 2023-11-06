@@ -70,6 +70,7 @@ const SignUp = () => {
               className="normal-case transition duration-100 ease w-[180px] h-[45px]  bg-gradient-to-r from-sky-800 to-cyan-700 text-white shadow-2xl font-bold hover:brightness-105 hover:scale-[1.02]"
               type="submit"
               loading={loading}
+              sx={{ color: 'white' }}
             >
               Send
             </LoadingButton>

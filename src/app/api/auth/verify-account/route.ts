@@ -1,4 +1,5 @@
 import { PrismaClient, User } from '@prisma/client';
+import { redirect } from 'next/navigation';
 
 import { verify } from '@/utils/bcrypt';
 
@@ -41,5 +42,7 @@ export const GET = async (request: Request) => {
     },
   });
 
-  return new Response('Account verified');
+  return redirect(
+    "/login?status=success&message=you're account has been verified you can login now"
+  );
 };

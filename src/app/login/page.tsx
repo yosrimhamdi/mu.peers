@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Link from 'next/link';
@@ -14,6 +14,7 @@ import FormikContext from '@/app/components/FormikContext';
 import { signIn } from '@/redux/slices/auth-slice';
 import { appDispatch, useAppSelector } from '@/redux/store';
 import { signInValidator } from '@/validators/auth';
+import { useEffect } from 'react';
 
 export interface SignInType {
   email: string;
@@ -23,6 +24,20 @@ const SignUp = () => {
   const dispatch = useDispatch<appDispatch>();
   const router = useRouter();
   const loading = useAppSelector(state => state.auth.loading);
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if (searchParams.has('message')) {
+      const message = searchParams.get('message');
+
+      if (searchParams.get('status') === 'success') {
+        toast.success(message);
+        return;
+      }
+
+      toast.error(message);
+    }
+  }, [searchParams]);
 
   const onFormSubmit = (formValues: SignInType): void => {
     dispatch(signIn(formValues))
