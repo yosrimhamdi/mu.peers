@@ -52,8 +52,10 @@ const SignUp = () => {
       })
       .catch((e: any) => {
         if (e.message === 'has session') {
-          setIsModalOpen(true);
+          return setIsModalOpen(true);
         }
+
+        toast.error(e.message);
       });
   };
 
