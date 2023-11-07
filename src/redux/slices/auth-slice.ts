@@ -18,6 +18,10 @@ const INITIAL_STATE: {
   loadingAuto: false,
 };
 
+export const destroySession = thunk('auth/destroy', async (email: string) => {
+  await axios.post('/api/auth/session', { email });
+});
+
 export const logout = thunk('auth/logout', async () => {
   return await axios.get('/api/auth/logout');
 });
@@ -60,7 +64,7 @@ export const auth = createSlice({
   initialState: INITIAL_STATE,
   reducers: {},
   extraReducers(builder) {
-    [signUp, forgotPassword, resetPassword].map(thunk => {
+    [signUp, forgotPassword, resetPassword, destroySession].map(thunk => {
       builder
         .addCase(thunk.pending, state => {
           state.loading = true;

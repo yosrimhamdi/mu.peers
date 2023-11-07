@@ -43,15 +43,16 @@ export const POST = async (req: Request) => {
   const cookieStore = cookies();
   cookieStore.set('token', token);
 
-  await prisma.session.updateMany({
+  const session = await prisma.session.findFirst({
     where: {
       userId: user.id,
       hasExpired: false,
     },
-    data: {
-      hasExpired: true,
-    },
   });
+
+  if (session) {
+    return jsonResponse(403, { message: 'has session' });
+  }
 
   await prisma.session.create({
     data: {
