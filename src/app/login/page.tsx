@@ -40,8 +40,8 @@ const SignUp = () => {
     }
   }, [searchParams]);
 
-  const onFormSubmit = async (formValues: SignInType) => {
-    return dispatch(signIn(formValues))
+  const handleSignIn = (formValues: SignInType) => {
+    dispatch(signIn(formValues))
       .then(unwrapResult)
       .then(response => {
         if (response.data.user.firstName) {
@@ -64,18 +64,17 @@ const SignUp = () => {
       email: '',
       password: '',
     },
-    onSubmit: onFormSubmit,
+    onSubmit: (formValues: SignInType) => handleSignIn(formValues),
     validationSchema: signInValidator,
   });
 
-  const checkSession = () => {
+  const onSessionDestroy = () => {
     const { email, password } = formik.values;
+
     dispatch(destroySession(email))
       .then(unwrapResult)
-      .then(async () => {
-        await onFormSubmit({ email, password });
-        setIsModalOpen(false);
-      });
+      .then(() => handleSignIn({ email, password }))
+      .then(() => setIsModalOpen(false));
   };
 
   return (
@@ -108,7 +107,7 @@ const SignUp = () => {
             loading={loading}
             sx={{ mr: 2 }}
             variant="outlined"
-            onClick={checkSession}
+            onClick={onSessionDestroy}
           >
             Yes
           </LoadingButton>

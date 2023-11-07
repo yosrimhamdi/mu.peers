@@ -17,5 +17,5 @@ export const POST = async (req: Request) => {
     },
   });
 
-  return jsonResponse(200, { message: 'ok', status: -100 });
+  return jsonResponse(200, {});
 };

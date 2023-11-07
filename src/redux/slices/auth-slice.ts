@@ -19,7 +19,7 @@ const INITIAL_STATE: {
 };
 
 export const destroySession = thunk('auth/destroy', async (email: string) => {
-  await axios.post('/api/auth/session', { email });
+  return await axios.post('/api/auth/session', { email });
 });
 
 export const logout = thunk('auth/logout', async () => {
